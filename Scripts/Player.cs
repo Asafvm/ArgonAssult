@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] float ySpeed = 6f;
     private bool isAlive = true;
     [SerializeField] GameObject deathVFX;
+    [SerializeField] GameObject[] guns;
 
     // Start is called before the first frame update
     void Start()
@@ -24,26 +25,24 @@ public class Player : MonoBehaviour
             return;
 
         Move();
-        //Fire();
+        Fire();
 
     }
 
     private void Fire()
     {
         bool isFiring = CrossPlatformInputManager.GetButton("Fire");
-        var guns = GetComponentsInChildren<ParticleSystem>();
-        Debug.Log(guns.Length);
 
-        foreach (ParticleSystem gun in guns)
+
+        foreach (GameObject gun in guns)
         {
-            if (isFiring)
-                gun.Play();
-            else
-                gun.Stop();
+            var emissionModule = gun.GetComponentInChildren<ParticleSystem>().emission;
+            Debug.Log(gun.name);
+            Debug.Log(emissionModule.enabled);
+            emissionModule.enabled = isFiring;
+
 
         }
-
-
 
     }
 

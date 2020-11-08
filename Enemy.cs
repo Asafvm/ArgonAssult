@@ -23,5 +23,6 @@ public class Enemy : MonoBehaviour
         g.transform.parent = parent.transform;
         FindObjectOfType<ScoreBoard>().AddScore(points);
         Destroy(gameObject);
+
     }
 }
